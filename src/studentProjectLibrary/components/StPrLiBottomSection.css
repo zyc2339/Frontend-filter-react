@@ -1,0 +1,31 @@
+.stPrLiCoBottomSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
+
+.stPrLiCoButton {
+  background-color: #e3ab32;
+  border: none;
+  border-radius: 6px;
+  color: #f7f1f4;
+  font-size: 20px;
+  /* border-width: 20px; */
+  border-color: #e3ab32;
+  box-shadow: none;
+  padding: 15px;
+  cursor: pointer;
+  transition: 0.5s;
+  opacity: 0.5;
+  font-family: "Nunito", Arial, Helvetica, sans-serif;
+}
+
+.stPrLiCoButton:hover {
+  background-color: #db9705;
+  transition: 0.5s;
+  opacity: 1;
+}

@@ -1,0 +1,14 @@
+.MiddleContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.SideFilter {
+  margin-right: 100px;
+}
+
+.StPrLiMainContent {
+  display: flex;
+  flex-direction: column;
+}

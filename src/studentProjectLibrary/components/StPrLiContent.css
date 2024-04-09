@@ -1,0 +1,95 @@
+.stPrLiCoTitle {
+  text-transform: uppercase;
+}
+
+.stPrLiCoTopBars {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stPrLiCoTitle {
+  margin-right: 30px;
+}
+
+.stPrLiCoShowFilterBars {
+  text-transform: uppercase;
+}
+
+.stPrLiCoShowFilterBars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transform: translateX(88%);
+}
+
+.stPrLiCoDifficultyFilterBars button {
+  background-color: #c7c1c179;
+  color: #454343dd;
+  border: 10px;
+  font-size: 14px;
+  transition: 0.1s;
+  border-radius: 3px;
+  padding: 2px 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.stPrLiCoShowFilterBars button {
+  background-color: #c7c1c179;
+  color: #454343dd;
+  border: 10px;
+  font-size: 14px;
+  transition: 0.1s;
+  border-radius: 3px;
+  padding: 2px 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.stPrLiCoShowFilterBars button:focus {
+  background-color: #68bdf1;
+  color: white;
+}
+
+
+.stPrLiCoShowFilterBars p {
+  font-family: "Nunito", Arial, Helvetica, sans-serif;
+}
+
+.stPrLiCoDifficultyFilterBars button:focus {
+  background-color: #68bdf1;
+  color: white;
+}
+
+.StPrLiCoSubtitle {
+  text-align: center;
+}
+
+.stPrLiCoSquareContainerWrapper :hover {
+  background-color: #68bdf1;
+  border-radius: 10px;
+  border: 30px;
+  color: #faf9f6;
+  transition: 0.1s;
+}
+
+.stPrLiCoSquareContainerWrapper {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px 30px;
+  justify-content: start;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+}
+
+.CoTaTitle {
+  font-size: 20px;
+  text-align: center;
+}
+
+.CoTaSubtitle {
+  text-align: center;
+  font-family: "Nunito", Arial, Helvetica, sans-serif;
+}
