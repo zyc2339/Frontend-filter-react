@@ -1,7 +1,7 @@
 # React + Vite
 ## How to Start:
-npm i 
-npm run dev
+`npm i` <br/>
+`npm run dev`
 
 ## Main file
 #### StudentProjectLibrary.jsx -- Main Page
