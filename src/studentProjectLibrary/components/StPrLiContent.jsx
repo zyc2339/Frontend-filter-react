@@ -31,22 +31,20 @@ export default function StPrLiContent({
 
   useEffect(() => {
     //create an array with all the keys having the true value in subscriptionFilter. (find the checked box in subscription)
-    
+    const getCheckedKey = (obj) => {
+      return Object.keys(obj).filter((key) => obj[key]);
+    };
 
+    // const subscriptionArray = Object.keys(subscriptionFilter).filter(
+    //   (key) => subscriptionFilter[key]
+    // );
+    const subscriptionArray = getCheckedKey(subscriptionFilter); //["Free"];
+    console.log(subscriptionArray);
+    const activityTypeArray = getCheckedKey(activityTypeFilter);
+    // console.log(activityTypeArray);
+    const subjectMatterArray = getCheckedKey(subjectMatterFilter);
+    const yearLevelArray = getCheckedKey(yearLevelFilter);
 
-    const subscriptionArray = Object.keys(subscriptionFilter).filter(
-      (key) => subscriptionFilter[key]
-    );
-    const activityTypeArray = Object.keys(activityTypeFilter).filter(
-      (key) => activityTypeFilter[key]
-    );
-    const subjectMatterArray = Object.keys(subjectMatterFilter).filter(
-      (key) => subjectMatterFilter[key]
-    );
-    const yearLevelArray = Object.keys(yearLevelFilter).filter(
-      (key) => yearLevelFilter[key]
-    );
-    // console.log(subscriptionArray);
     //initial a variable
     let filterProject = projectsData;
 
@@ -59,57 +57,72 @@ export default function StPrLiContent({
     ) {
       setCheckboxFilteredProject(filterProject);
     } else {
+      //initial a function with array.filter + array.some = find the matched project
+      // const filterSomeFunc = (array, key) => {
+      //   filterProject.filter((project) => {
+      //     return array.some(
+      //       // find all the project.subscription match the subscriptionArray element
+      //       (element) => element === project[key]
+      //     );
+      //   });
+      // };
+      // console.log("Iam here");
+
+      //1️⃣Filter first section: subscription
       //1️⃣Filter first section: subscription
       if (subscriptionArray.length === 0) {
         //if no checked box, do nothing
-        console.log("empty subscription");
+        console.log("no sub checked");
       } else {
+        console.log("hello");
         filterProject = filterProject.filter((project) => {
-          console.log("2", filterProject);
-
           return subscriptionArray.some(
             // find all the project.subscription match the subscriptionArray element
             (element) => element === project.subscription
           );
         });
-        console.log("3", filterProject);
-
+        console.log(filterProject);
         //update New filtered project array to display
         setCheckboxFilteredProject(filterProject);
+        console.log(checkboxFilteredProject);
       }
 
       //2️⃣Filter second section: activityType
       if (activityTypeArray.length === 0) {
-        console.log("empty activityType");
+        // return;
       } else {
         filterProject = filterProject.filter((project) =>
           activityTypeArray.some((element) => element === project.activityType)
         );
+        //update New filtered project array to display
         setCheckboxFilteredProject(filterProject);
       }
 
       //3️⃣Filter third section: subjectMatter
       if (subjectMatterArray.length === 0) {
-        console.log("empty subjectMatter");
+        // return;
       } else {
         filterProject = filterProject.filter((project) =>
           subjectMatterArray.some(
             (element) => element === project.subjectMatter
           )
         );
+        //update New filtered project array to display
         setCheckboxFilteredProject(filterProject);
       }
 
       //4️⃣Filter fourth section: yearLevel
       if (yearLevelArray.length === 0) {
-        console.log("empty year level");
+        // return;
+        console.log("no year level selected");
       } else {
         filterProject = filterProject.filter((project) =>
           yearLevelArray.some((element) => element === project.yearLevel)
         );
-        console.log(yearLevelArray);
+        //update New filtered project array to display
         setCheckboxFilteredProject(filterProject);
       }
+      console.log(checkboxFilteredProject);
     }
   }, [
     // run above function whenever checkbox update state.
@@ -122,9 +135,11 @@ export default function StPrLiContent({
   //After checkbox filtered, trigger this useEffect
   useEffect(() => {
     if (checkboxFilteredProject.length === 0) {
-      console.log("no check box selected");
+      // console.log("no check box selected");
+      return;
     } else {
       let filterProject = checkboxFilteredProject;
+
       //5️⃣filter difficulty
       if (!displaydifficulty) {
         console.log("no level selected");
@@ -141,6 +156,7 @@ export default function StPrLiContent({
       } else {
         filterProject = filterProject.slice(0, displayNumber);
       }
+
       setDisplayResult(filterProject);
     }
   }, [displaydifficulty, displayNumber, checkboxFilteredProject]);
