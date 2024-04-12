@@ -9,10 +9,12 @@ export default function StPrLiContent({
   yearLevelFilter,
 }) {
   // create a state to hold the projectsData after checkbox filtered.
-  const [displayProjects, setDisplayProjects] = useState(projectsData);
+  const [checkboxFilteredProject, setCheckboxFilteredProject] = useState([]);
+  // create a state to hold the final filtered result to display
+  const [displayResult, setDisplayResult] = useState(projectsData);
   //create a state to hold the difficulty button's filter
   const [displaydifficulty, setDisplaydifficulty] = useState("");
-  //create a state to hold the show number button's filter
+  //create a state for show button's filter
   const [displayNumber, setDisplayNumber] = useState("ALL");
 
   // beginner-intermediate-advanced  button
@@ -29,6 +31,9 @@ export default function StPrLiContent({
 
   useEffect(() => {
     //create an array with all the keys having the true value in subscriptionFilter. (find the checked box in subscription)
+    
+
+
     const subscriptionArray = Object.keys(subscriptionFilter).filter(
       (key) => subscriptionFilter[key]
     );
@@ -45,30 +50,6 @@ export default function StPrLiContent({
     //initial a variable
     let filterProject = projectsData;
 
-    //5️⃣filter difficulty
-    if (!displaydifficulty) {
-      console.log("no level selected");
-    } else {
-      filterProject = filterProject.filter(
-        (project) => project.difficulty === displaydifficulty
-      );
-      console.log(filterProject);
-      setDisplayProjects(filterProject);
-    }
-    //6️⃣filter number to show
-    //This is unfinished, should set up pagination
-    if (displayNumber === "ALL") {
-      console.log("Show All");
-    } else {
-      if (displayNumber === "5") {
-        filterProject = filterProject.slice(0, 5);
-      } else if (displayNumber === "10") {
-        filterProject = filterProject.slice(0, 10);
-      }
-      console.log(filterProject);
-      setDisplayProjects(filterProject);
-    }
-
     //If no check box checked, then display all project
     if (
       !subscriptionArray.length &&
@@ -76,7 +57,7 @@ export default function StPrLiContent({
       !subjectMatterArray.length &&
       !yearLevelArray.length
     ) {
-      setDisplayProjects(filterProject);
+      setCheckboxFilteredProject(filterProject);
     } else {
       //1️⃣Filter first section: subscription
       if (subscriptionArray.length === 0) {
@@ -84,13 +65,17 @@ export default function StPrLiContent({
         console.log("empty subscription");
       } else {
         filterProject = filterProject.filter((project) => {
+          console.log("2", filterProject);
+
           return subscriptionArray.some(
             // find all the project.subscription match the subscriptionArray element
             (element) => element === project.subscription
           );
         });
+        console.log("3", filterProject);
+
         //update New filtered project array to display
-        setDisplayProjects(filterProject);
+        setCheckboxFilteredProject(filterProject);
       }
 
       //2️⃣Filter second section: activityType
@@ -100,7 +85,7 @@ export default function StPrLiContent({
         filterProject = filterProject.filter((project) =>
           activityTypeArray.some((element) => element === project.activityType)
         );
-        setDisplayProjects(filterProject);
+        setCheckboxFilteredProject(filterProject);
       }
 
       //3️⃣Filter third section: subjectMatter
@@ -112,7 +97,7 @@ export default function StPrLiContent({
             (element) => element === project.subjectMatter
           )
         );
-        setDisplayProjects(filterProject);
+        setCheckboxFilteredProject(filterProject);
       }
 
       //4️⃣Filter fourth section: yearLevel
@@ -123,10 +108,8 @@ export default function StPrLiContent({
           yearLevelArray.some((element) => element === project.yearLevel)
         );
         console.log(yearLevelArray);
-        setDisplayProjects(filterProject);
+        setCheckboxFilteredProject(filterProject);
       }
-      console.log(displaydifficulty);
-      console.log(displayNumber);
     }
   }, [
     // run above function whenever checkbox update state.
@@ -134,9 +117,33 @@ export default function StPrLiContent({
     activityTypeFilter,
     subjectMatterFilter,
     yearLevelFilter,
-    displaydifficulty,
-    displayNumber,
   ]);
+
+  //After checkbox filtered, trigger this useEffect
+  useEffect(() => {
+    if (checkboxFilteredProject.length === 0) {
+      console.log("no check box selected");
+    } else {
+      let filterProject = checkboxFilteredProject;
+      //5️⃣filter difficulty
+      if (!displaydifficulty) {
+        console.log("no level selected");
+      } else {
+        filterProject = filterProject.filter(
+          (project) => project.difficulty === displaydifficulty
+        );
+      }
+
+      //6️⃣filter number to show
+      //This is unfinished, should set up pagination
+      if (displayNumber === "ALL") {
+        console.log("Show All");
+      } else {
+        filterProject = filterProject.slice(0, displayNumber);
+      }
+      setDisplayResult(filterProject);
+    }
+  }, [displaydifficulty, displayNumber, checkboxFilteredProject]);
 
   return (
     // Created the main content in a separate component//
@@ -171,6 +178,9 @@ export default function StPrLiContent({
 
           <div className="stPrLiCoShowFilterBars">
             <p className="stPrLiCoTitle">show</p>
+            <button onClick={handleNumFilter}>1</button>
+            <button onClick={handleNumFilter}>2</button>
+            <button onClick={handleNumFilter}>3</button>
             <button onClick={handleNumFilter}>5</button>
             <button onClick={handleNumFilter}>10</button>
             <button onClick={handleNumFilter}>All</button>
@@ -179,8 +189,8 @@ export default function StPrLiContent({
         </div>
         {/* project section */}
         <div className="stPrLiCoSquareContainerWrapper">
-          {displayProjects &&
-            displayProjects.map((item) => (
+          {displayResult &&
+            displayResult.map((item) => (
               <div key={item.id}>
                 <img src={item.image} alt={item.title} />
                 <h2 className="CoTaTitle">
@@ -200,4 +210,3 @@ export default function StPrLiContent({
     </div>
   );
 }
-
