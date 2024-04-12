@@ -57,7 +57,7 @@ export default function StPrLiContent({
     ) {
       setCheckboxFilteredProject(filterProject);
     } else {
-      //initial a function with array.filter + array.some = find the matched project
+      //clean code stage 2: initial a function with array.filter + array.some = find the matched project
       // const filterSomeFunc = (array, key) => {
       //   filterProject.filter((project) => {
       //     return array.some(
@@ -66,22 +66,18 @@ export default function StPrLiContent({
       //     );
       //   });
       // };
-      // console.log("Iam here");
 
-      //1️⃣Filter first section: subscription
       //1️⃣Filter first section: subscription
       if (subscriptionArray.length === 0) {
         //if no checked box, do nothing
         console.log("no sub checked");
       } else {
-        console.log("hello");
         filterProject = filterProject.filter((project) => {
           return subscriptionArray.some(
             // find all the project.subscription match the subscriptionArray element
             (element) => element === project.subscription
           );
         });
-        console.log(filterProject);
         //update New filtered project array to display
         setCheckboxFilteredProject(filterProject);
         console.log(checkboxFilteredProject);
@@ -90,6 +86,7 @@ export default function StPrLiContent({
       //2️⃣Filter second section: activityType
       if (activityTypeArray.length === 0) {
         // return;
+        console.log("no activity checked");
       } else {
         filterProject = filterProject.filter((project) =>
           activityTypeArray.some((element) => element === project.activityType)
@@ -101,6 +98,7 @@ export default function StPrLiContent({
       //3️⃣Filter third section: subjectMatter
       if (subjectMatterArray.length === 0) {
         // return;
+        console.log("no subject checked");
       } else {
         filterProject = filterProject.filter((project) =>
           subjectMatterArray.some(
@@ -122,7 +120,6 @@ export default function StPrLiContent({
         //update New filtered project array to display
         setCheckboxFilteredProject(filterProject);
       }
-      console.log(checkboxFilteredProject);
     }
   }, [
     // run above function whenever checkbox update state.

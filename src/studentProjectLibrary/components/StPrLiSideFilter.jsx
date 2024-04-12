@@ -1,6 +1,5 @@
 import "../components/StPrLiSideFilter.css";
 
-
 export default function StPrLiSideFilter({
   handleSubscriptionFilterChange,
   handleActivityTypeFilterChange,
